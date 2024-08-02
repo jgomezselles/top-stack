@@ -21,10 +21,7 @@ data:
         "post1",
         "get1",
         "put1",
-        "delete1",
-        "wrong_path",
-        "timeout_example",
-        "error1"
+        "delete1"
       ],
       "messages": {
         "post1": {
