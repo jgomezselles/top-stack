@@ -1,0 +1,30 @@
+
+apiVersion: tempo.grafana.com/v1alpha1
+kind: TempoMonolithic
+metadata:
+  name: tempo
+spec:
+  ingestion:
+    otlp:
+      grpc:
+        enabled: true
+      http:
+        enabled: true
+  resources:
+    limits:
+      cpu: '2'
+      memory: 5Gi
+  multitenancy:
+    enabled: false
+    mode: static
+  jaegerui:
+    resources:
+      limits:
+        cpu: '2'
+        memory: 2Gi
+    route:
+      enabled: true
+    enabled: true
+  storage:
+    traces:
+      backend: memory
