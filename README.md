@@ -30,6 +30,6 @@ More info on [hermes repo](https://github.com/jgomezselles/hermes)
 
 ## Uninstalling
 ```
- oc delete -f operators.yaml
  helm uninstall hermes -n hermes
+ oc delete -f operators.yaml
 ```
