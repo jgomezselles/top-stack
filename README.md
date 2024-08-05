@@ -1,13 +1,18 @@
 # top-stack
-Repo with integrations of the observability stack in OpenShift
+Repo with integrations of the observability stack in OpenShift: Tempo, OpenTelemetry and Prometheus.
+May evolve into PLOT (adding Loki).
 
 ## TODO
-[] Find a way to install COO easily from helm chart
-[] Install Prometheus
-[] Install tracing plugin
-[] Install korrel8r
-[] Install LokiMonolithic
-[] Split helm charts into TOP stack and sample apps
+[x] Add OTel collector
+[x] Add Tempo Monolithic
+[ ] Find a way to install COO easily from helm chart
+[ ] Install Prometheus
+[ ] Integrate with personal Grafana Cloud
+[ ] Integrate with dev cluster
+[ ] Install tracing plugin
+[ ] Install korrel8r
+[ ] Install LokiMonolithic
+[ ] Split helm charts into TOP stack and sample apps
 
 
 ## Installing
