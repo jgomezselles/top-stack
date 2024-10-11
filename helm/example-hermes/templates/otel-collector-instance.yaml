@@ -1,15 +1,24 @@
-apiVersion: opentelemetry.io/v1alpha1
+apiVersion: opentelemetry.io/v1beta1
 kind: OpenTelemetryCollector
 metadata:
   name: otel
 spec:
   mode: deployment
-  config: |
+  observability:
+    metrics:
+      enableMetrics: true
+  config:
+    extensions:
+      bearertokenauth:
+        filename: /var/run/secrets/kubernetes.io/serviceaccount/token
     receivers:
-      otlp:
+      otlp/grpc:
         protocols:
           grpc: {}
+      otlp/http:
+        protocols:
           http: {}
+
     processors:
       batch: {}
       memory_limiter:
@@ -19,19 +28,36 @@ spec:
     exporters:
       debug:
         verbosity: detailed
-
-      otlphttp/traces:
-        endpoint: http://tempo-tempo:4318
+      otlp:
+        endpoint: tempo-tempo-gateway.hermes.svc.cluster.local:4317
         tls:
-          insecure: true
+          ca_file: /var/run/secrets/kubernetes.io/serviceaccount/service-ca.crt
+        auth:
+          authenticator: bearertokenauth
+        headers:
+          X-Scope-OrgID: dev  # tenantName
+
+      otlphttp:
+        endpoint: https://tempo-tempo-gateway.hermes.svc.cluster.local:8080/api/traces/v1/dev
+        tls:
+          ca_file: /var/run/secrets/kubernetes.io/serviceaccount/service-ca.crt
+        auth:
+          authenticator: bearertokenauth
+        headers:
+          X-Scope-OrgID: dev
 
     service:
+      extensions: [bearertokenauth]
       pipelines:
         metrics:
-          receivers: [otlp]
+          receivers: [otlp/http]
           processors: [memory_limiter,batch]
           exporters: [debug]
-        traces:
-          receivers: [otlp]
+        traces/grpc:
+          receivers: [otlp/grpc]
           processors: [memory_limiter,batch]
-          exporters: [debug, otlphttp/traces]
+          exporters: [debug, otlp]
+        traces/http:
+          receivers: [otlp/http]
+          processors: [memory_limiter,batch]
+          exporters: [debug, otlphttp]

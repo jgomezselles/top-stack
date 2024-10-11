@@ -1,0 +1,13 @@
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: allow-write-traces-dev-tenant
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: allow-write-traces-dev-tenant
+subjects:
+- kind: ServiceAccount
+  name: dev-collector
+  namespace: {{ .Release.Namespace }}

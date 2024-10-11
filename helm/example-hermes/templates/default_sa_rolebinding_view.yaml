@@ -1,0 +1,15 @@
+# Grant the default ServiceAccount (used by the verify-traces pod) view permissions of the chainsaw-monolithic-multitenancy namespace.
+# If the ServiceAccount cannot access any namespaces, every 'get' request will be denied:
+# https://github.com/observatorium/opa-openshift/pull/18/files
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: view
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: view
+subjects:
+- kind: ServiceAccount
+  name: default
+  namespace: {{ .Release.Namespace }}

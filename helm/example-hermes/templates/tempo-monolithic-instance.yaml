@@ -1,4 +1,5 @@
 
+# Example: https://github.com/grafana/tempo-operator/blob/main/tests/e2e-openshift/monolithic-multitenancy-openshift/01-install-tempo.yaml
 apiVersion: tempo.grafana.com/v1alpha1
 kind: TempoMonolithic
 metadata:
@@ -15,8 +16,13 @@ spec:
       cpu: '2'
       memory: 5Gi
   multitenancy:
-    enabled: false
-    mode: static
+    enabled: true
+    mode: openshift
+    authentication:
+    - tenantName: dev
+      tenantId: "1610b0c3-c509-4592-a256-a1871353dbfa"
+    - tenantName: prod
+      tenantId: "1610b0c3-c509-4592-a256-a1871353dbfb"
   jaegerui:
     resources:
       limits:

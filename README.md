@@ -20,7 +20,7 @@ May evolve into PLOT (adding Loki).
 ```
  oc create -f operators.yaml
  helm dep update helm/example-hermes
- helm install hermes example-hermes --create-namespace -n hermes
+ helm install hermes helm/example-hermes --create-namespace -n hermes
 ```
 ## Running traffic
 
@@ -31,5 +31,7 @@ More info on [hermes repo](https://github.com/jgomezselles/hermes)
 ## Uninstalling
 ```
  helm uninstall hermes -n hermes
- oc delete -f operators.yaml
+ oc delete -f yamls/operators.yaml
+ oc delete -f yamls/coo.yaml
+ # oc delete csv observability-operator.v0.4.2-241003104153 -n openshift-operators
 ```
