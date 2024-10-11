@@ -18,9 +18,9 @@ hermes:
     tag: 0.0.4
     pullPolicy: IfNotPresent
   o11y:
-    metrics_endpoint: http://otel-collector:4318/v1/metrics
+    metrics_endpoint: http://dev-collector:4318/v1/metrics
     #http://victoria-svc:8428/opentelemetry/api/v1/push
-    traces_endpoint: http://otel-collector:4318/v1/traces
+    traces_endpoint: http://dev-collector:4318/v1/traces
     #http://hermes-tempo:4318/v1/traces
 
 #grafana:
