@@ -5,11 +5,11 @@ May evolve into PLOT (adding Loki).
 ## TODO
 - [x] Add OTel collector
 - [x] Add Tempo Monolithic
-- [ ] Find a way to install COO easily from helm chart
+- [x] Install tracing plugin
+- [x] Find a way to install COO easily from helm chart
 - [ ] Install Prometheus
 - [ ] Integrate with personal Grafana Cloud
 - [ ] Integrate with dev cluster
-- [ ] Install tracing plugin
 - [ ] Install korrel8r
 - [ ] Install LokiMonolithic
 - [ ] Split helm charts into TOP stack and sample apps
@@ -18,7 +18,8 @@ May evolve into PLOT (adding Loki).
 ## Installing
 
 ```
- oc create -f operators.yaml
+ oc create -f yamls/operators.yaml
+ helm repo add hermes-charts https://jgomezselles.github.io/hermes-charts
  helm dep update helm/example-hermes
  helm install hermes helm/example-hermes --create-namespace -n hermes
 ```
